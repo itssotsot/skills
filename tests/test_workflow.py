@@ -131,6 +131,41 @@ class WorkflowTest(unittest.TestCase):
         self.state["validation"].append({"status": "pending"})
         self.assertEqual(project.ready_errors(self.root, self.state), [])
 
+    def test_early_website_is_preserved_without_authorizing_modeling(self):
+        state = project.initial_state("website-before-generation")
+        site = self.root / "website"
+        site.mkdir()
+        (site / "assets.html").write_text('<a href="preview.html">Preview</a><p>No assets yet.</p>')
+        (site / "preview.html").write_text('<a href="assets.html">Assets</a><p>Model not ready yet.</p>')
+        state["website"] = {"entry": "website/assets.html", "assets": "website/assets.html",
+                            "preview": "website/preview.html", "preview_version": None}
+        state["deliverables"] = [{"path": "website/assets.html"}, {"path": "website/preview.html"}]
+        project.save(self.root, state)
+        self.assertEqual(self.cli(["start-modeling", str(self.root)]), 1)
+        loaded = project.load(self.root)
+        self.assertEqual(loaded["website"], state["website"])
+        self.assertEqual(loaded["phase"], "brief")
+        self.assertFalse(loaded["approvals"])
+
+    def test_website_updates_preserve_approvals_but_reference_changes_do_not(self):
+        self.approve_all()
+        original_approvals = copy.deepcopy(self.state["approvals"])
+        site = self.root / "website"
+        site.mkdir()
+        gallery = site / "assets.html"
+        gallery.write_text('<a href="../fixture.png">Reference</a>')
+        self.state["website"] = {"entry": "website/assets.html", "preview_version": None}
+        project.save(self.root, self.state)
+        gallery.write_text('<h1>Assets</h1><a href="../fixture.png">Reference, version 1</a>')
+        loaded = project.load(self.root)
+        loaded["website"]["preview_version"] = "model-v1"
+        project.save(self.root, loaded)
+        self.assertEqual(project.ready_errors(self.root, loaded), [])
+        self.assertEqual(loaded["approvals"], original_approvals)
+        self.assertEqual(project.load(self.root)["website"]["preview_version"], "model-v1")
+        Image.new("RGB", (64, 64), "red").save(self.root / "fixture.png")
+        self.assertIn("stale user approval: references", project.ready_errors(self.root, loaded))
+
     def test_no_overwrite_on_initialization(self):
         project.save(self.root, self.state)
         before = (self.root / "project.json").read_bytes()

@@ -21,6 +21,7 @@ It creates the manifest and `references/`, `prompts/`, `models/`, `previews/`, a
 - `pose_references`: optional list of image entries when pose sheets were agreed.
 - `approvals`: populated by the helper with statements, source locators, timestamps, and input fingerprints.
 - `deliverables`, `validation`: lists maintained during implementation and delivery. Record file paths, what was tested, actual results, limitations, and Blender version; do not fabricate tests.
+- `website`: project-specific output bookkeeping for the site entry, Assets and Interactive Preview page paths, local URL, startup command, and current model preview version. Create the site before generation and update it as artifacts arrive; see [project-website.md](project-website.md). The helper preserves this field without interpreting it.
 
 An image entry looks like:
 

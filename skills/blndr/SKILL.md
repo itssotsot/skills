@@ -5,7 +5,7 @@ description: Design and build editable Blender assets through user-approved conc
 
 # blndr
 
-Guide a user from an idea to an editable Blender asset. This is one skill for Codex and Claude Code. Use the tools actually available; do not invent image-generation or Blender capabilities.
+Guide a user from an idea to an editable Blender asset, with a project website for generated assets and interactive model inspection. This is one skill for Codex and Claude Code. Use the tools actually available; do not invent image-generation or Blender capabilities.
 
 ## Begin or resume
 
@@ -15,18 +15,20 @@ Read the user's existing prompt and project state before asking questions. Keep 
 - Existing project: inspect `project.json`, current references, approvals, and last `.blend` checkpoint. Confirm state against files before continuing. A change to approved inputs invalidates the affected approval fingerprints.
 - Routine edits to an existing asset: preserve the authorized scope. Do not force an entire redesign or claim new approvals. Use the modeling/animation references as relevant.
 
+For a new project, read [project-website.md](references/project-website.md) and **create and open the project website before generating the first asset**. Provide separate **Assets** and **Interactive Preview** pages from the start. Populate Assets incrementally as files are generated; activate the interactive page when actual model geometry is available. Do not wait for images, a complete reference pack, or a finished model to create the website. On resume, reuse and update the existing site.
+
 Use [design-and-approval.md](references/design-and-approval.md) during briefing and review. Ask compact questions only about missing decisions that affect the outcome: appearance, proportions, materials, required parts, intended use, scale, deliverables, and **static / rigged / animated** mode. For animated work, read [animation.md](references/animation.md) now to establish clips and movement constraints before references or geometry.
 
 ## Required order for a new model
 
-1. **Brief.** Record the user's requirements and agreed defaults. Do not invent extras from an example such as “samurai.” Check local Python/Blender and provider availability without creating geometry or invoking paid generation.
+1. **Brief and website.** Record the user's requirements and agreed defaults. Do not invent extras from an example such as “samurai.” Initialize and open the website with empty states before asset generation. Check local Python/Blender and provider availability without creating geometry or invoking paid generation.
 2. **Whole-model concept.** Choose a provider with [providers/README.md](providers/README.md). Generate or accept front, side, back, and three-quarter concept views of one coherent design. Show the images, label them as concepts, and revise the existing design until the user approves it.
 3. **Final additions.** Show the accepted design and proposed component/deliverable list. Ask whether anything should be added or changed before building. A reply that already says “nothing else, proceed” satisfies this step. Record scope approval and update the list if needed.
 4. **Complete component reference pack.** Before **any Blender modeling, including blockout**, follow [component-references.md](references/component-references.md). Generate front, back, left, right, top, and bottom references for **every planned component**. Add attachment details and animation pose sheets where useful. Finish the entire pack before moving to Blender; do not generate missing parts just in time during construction.
 5. **Reference review.** Inspect every image for coverage and consistency, resolve contradictions, and show the entire pack in manageable review groups. Apply requested revisions. Obtain explicit approval of the completed pack and permission to proceed. Record the actual user statement, never an inferred or invented approval.
 6. **Modeling gate.** Run `scripts/project.py check <project-dir> --ready-to-model`, then `scripts/project.py start-modeling <project-dir>`. Both require current concept, scope, and complete-pack approvals. The check verifies files and fingerprints, not visual correctness or the truth of a quoted statement; the agent remains responsible for those.
 7. **Build and inspect.** Read [blender-workflow.md](references/blender-workflow.md). Build proportions first, then detail, materials, and topology. Inspect **actual Blender renders** against the approved references at useful milestones. For rigged/animated delivery, follow [animation.md](references/animation.md); validate the rig before creating the agreed clips.
-8. **Deliver.** Save versioned `.blend` checkpoints, dependencies, requested exports, and previews. Reopen outputs and test relevant behavior. Update `deliverables` and `validation` in state, including known limitations. Claim completion only when the agreed deliverables have actually been checked.
+8. **Deliver.** Save versioned `.blend` checkpoints, dependencies, requested exports, and previews. Finish both website pages, including the interactive model viewer and complete asset gallery. Reopen outputs and test relevant behavior, browser controls, and asset links. Update `deliverables` and `validation` in state, including known limitations. Claim completion only when the agreed deliverables have actually been checked.
 
 Do not equate silence, successful image generation, or an agent's own inspection with user approval. User instructions can explicitly change the workflow; record the change rather than silently weakening it. The supplied gate deliberately has no automatic “skip references” switch.
 
