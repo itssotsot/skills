@@ -4,7 +4,9 @@
 
 ## How blndr works
 
-Describe what you want to create. The agent develops a concept and component references for your approval, then builds and checks the model in Blender.
+Describe what you want to create. The agent asks focused questions about missing details, uses your answers to identify any remaining gaps, and repeats until the requirements are clear. This covers appearance, required parts, intended use, movement, and deliverables. It builds on earlier answers rather than asking the same questions again.
+
+Once those details are settled, the agent develops a concept and component references for your review. You can request changes and repeat the review until you approve them. Only then does modeling begin in Blender, followed by checks of the finished asset and its controls.
 
 A local website opens before generation starts. Its **Assets** page fills as images and files are created. A separate **Interactive Preview** page becomes a 3D viewer when model geometry is available, with the agreed rig or animation controls.
 
@@ -20,9 +22,29 @@ npx skills add itssotsot/skills --skill blndr --agent codex claude-code --global
 
 ## Use blndr
 
-Type `$blndr` in Codex or `/blndr` in Claude Code, followed by your request:
+Type `$blndr` in Codex or `/blndr` in Claude Code, followed by your request.
 
-> Create a red F1-style car with steering and rotating wheels.
+## Examples
+
+### Ferrari-inspired Formula One car
+
+The starting request was:
+
+> I want to create a red F1 Ferrari formula.
+
+The agent clarified the delivery mode:
+
+| Stage | Agent's question | User's answer |
+| --- | --- | --- |
+| Delivery mode | What should the Ferrari F1 model be prepared for? | Rigged model with steering and rotating wheels |
+
+The options offered were:
+
+1. Static display model with an editable `.blend` file (Recommended)
+2. **Rigged model with steering and rotating wheels — selected**
+3. Animated model—describe the motion you want
+
+The result was an editable red Formula One car with front-wheel steering, independent wheel rotation, and a cockpit steering wheel that follows the front wheels. The project includes a gallery of generated concepts, component references, and model renders, plus an interactive 3D preview to orbit, zoom, steer, and spin the wheels.
 
 ## What you need
 
