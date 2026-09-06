@@ -46,6 +46,10 @@ The options offered were:
 
 The result was an editable red Formula One car with front-wheel steering, independent wheel rotation, and a cockpit steering wheel that follows the front wheels. The project includes a gallery of generated concepts, component references, and model renders, plus an interactive 3D preview to orbit, zoom, steer, and spin the wheels.
 
+[![Watch the Ferrari-inspired Formula One car demo](assets/examples/ferrari-f1-demo.jpg)](assets/examples/ferrari-f1-demo.mp4)
+
+[Watch the demo video (38 seconds)](assets/examples/ferrari-f1-demo.mp4).
+
 ## What you need
 
 - Codex or Claude Code with local file and command access.
