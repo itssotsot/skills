@@ -1,40 +1,35 @@
-# It's Sotsot Skills
+# Skills
 
-A collection of reusable skills for **Codex and Claude Code**. Install each skill independently.
+**[blndr](skills/blndr/SKILL.md)** is currently the only skill in this repository. It helps **Codex and Claude Code** create editable Blender models, with optional rigging and animation.
 
-## Skills
+## How blndr works
 
-| Skill | What it does |
-| --- | --- |
-| [blndr](skills/blndr/SKILL.md) | Creates editable Blender assets from approved visual references, with optional rigging and animation, an asset gallery, and an interactive 3D preview. |
+Describe what you want to create. The agent develops a concept and component references for your approval, then builds and checks the model in Blender.
 
-## Install
+A local website opens before generation starts. Its **Assets** page fills as images and files are created. A separate **Interactive Preview** page becomes a 3D viewer when model geometry is available, with the agreed rig or animation controls.
 
-Install `blndr` for both agents using the [Skills CLI](https://github.com/vercel-labs/skills):
+[Read the full blndr workflow →](skills/blndr/SKILL.md)
+
+## Install blndr
+
+Install it globally for Codex and Claude Code using the [Skills CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills add itssotsot/itssotsotskills --skill blndr --agent codex claude-code --global
+npx skills add itssotsot/skills --skill blndr --agent codex claude-code --global
 ```
 
-To install from a local checkout, replace `itssotsot/itssotsotskills` with `.`.
+## Use blndr
 
-## Use
-
-Invoke `$blndr` in Codex or `/blndr` in Claude Code, followed by your request. Example:
+Type `$blndr` in Codex or `/blndr` in Claude Code, followed by your request:
 
 > Create a red F1-style car with steering and rotating wheels.
 
-The agent helps you approve the design and complete component references before modeling in Blender.
+## What you need
 
-It opens a local website **before generating any assets**. The **Assets** page fills as images and files are created. A separate **Interactive Preview** page becomes a working 3D viewer when the model is ready, with the agreed rig or animation controls.
+- Codex or Claude Code with local file and command access.
+- Blender 4.5+ and Python 3.10+ with the [helper dependencies](skills/blndr/requirements.txt).
+- Codex built-in image generation, or a configured OpenAI or Google Nano Banana API. API usage has separate costs; see [provider setup](skills/blndr/providers/README.md).
 
-## Requirements
-
-- Codex or Claude Code with local file access and command execution.
-- Blender 4.5+.
-- Python 3.10+ with the [helper dependencies](skills/blndr/requirements.txt).
-- An image provider: Codex built-in image generation, or a configured OpenAI or Google Nano Banana API. API usage has separate costs. See [provider setup](skills/blndr/providers/README.md).
-
-Generated assets stay in your project folder, outside the installed skill.
+The generated files stay in your asset project folder.
 
 [MIT License](LICENSE)
