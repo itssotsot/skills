@@ -1,0 +1,4 @@
+interface:
+  display_name: "blndr"
+  short_description: "Approved visual references to editable Blender assets"
+  default_prompt: "Use $blndr to design and build a Blender asset, approving all component references before modeling."
