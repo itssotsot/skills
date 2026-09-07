@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas2ImageGen"
+  short_description: "Sketch an idea, then generate and refine the image"
+  default_prompt: "Use $canvas2imagegen to open the canvas, wait for me to click Use sketch, then automatically generate an image from my sketch and description."
